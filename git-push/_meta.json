@@ -1,0 +1,29 @@
+{
+  "name": "git-push",
+  "version": "2.1.0",
+  "description": "完整的 Git 仓库管理助手，支持仓库增删改查、文件级操作和回退撤销",
+  "author": "zhangluweivivi",
+  "license": "MIT",
+  "keywords": ["git", "github", "push", "repository", "version-control"],
+  "binaries": ["git", "gh"],
+  "install": [
+    {
+      "id": "git",
+      "kind": "apt",
+      "package": "git",
+      "bins": ["git"],
+      "label": "Install Git"
+    },
+    {
+      "id": "gh",
+      "kind": "apt",
+      "package": "gh",
+      "bins": ["gh"],
+      "label": "Install GitHub CLI"
+    }
+  ],
+  "entry": {
+    "type": "prompt",
+    "path": "SKILL.md"
+  }
+}
