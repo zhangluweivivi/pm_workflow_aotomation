@@ -82,13 +82,6 @@ cat SKILL.md
 ./scripts/create-repo.sh my-repo --private
 ```
 
-#### brainstorm
-```bash
-# 查看技能文档
-cat skills/brainstorm/SKILL.md
-```
-
----
 
 ## 📁 目录结构
 
@@ -104,24 +97,9 @@ pm_workflow_aotomation/
 │   │       ├── push.sh
 │   │       ├── create-repo.sh
 │   │       └── rollback.sh
-│   └── brainstorm/             # 头脑风暴 Skill
-│       ├── SKILL.md
-│       └── _meta.json
 └── docs/                       # 文档目录
     └── usage-guide.md
 ```
-
----
-
-## 🛠️ 开发计划
-
-- [x] git-push Skill v2.1
-- [x] brainstorm Skill v1.0
-- [ ] 提交到 ClawHub
-- [ ] 添加更多 PM 工作流 Skills
-- [ ] CI/CD 自动化测试
-
----
 
 ## 📄 许可证
 
