@@ -1,88 +1,75 @@
 ---
 name: git-push
-description: "完整的 Git 仓库管理助手，支持仓库增删改查、文件级操作和回退撤销。使用 gh CLI 和 git 命令管理 GitHub 仓库。"
-metadata: {"clawdbot":{"requires":{"bins":["git","gh"]},"install":[{"id":"git","kind":"apt","package":"git","bins":["git"],"label":"Install Git"},{"id":"gh","kind":"apt","package":"gh","bins":["gh"],"label":"Install GitHub CLI"}]}}
+description: |
+  完整的 Git 仓库管理助手，支持仓库增删改查、文件级操作和回退撤销。
+  使用 gh CLI 和 git 命令管理 GitHub 仓库。
+  
+  使用场景：
+  1. Skill开发版本管理
+  2. 配置文件同步
+  3. 代码版本控制
+  4. 团队协作开发
+  
+  触发关键词：git推送、新建仓库、删除分支、回退提交、查看状态
+license: MIT
+compatibility: |
+  需要 git 和 gh (GitHub CLI) 已安装。
+  支持 Ubuntu/Debian 和 macOS 系统。
+metadata:
+  version: "2.1.0"
+  author: zhangluweivivi
+  homepage: https://github.com/zhangluweivivi/pm_workflow_aotomation
+  requires:
+    bins:
+      - git
+      - gh
 ---
 
-# Git Push Skill v2.1
+# git-push
 
 完整的 Git 仓库管理助手，支持仓库增删改查、文件级操作和回退撤销。
 
-## 功能特性
+## When to Use
 
-### 🔧 五大操作模式
+触发此 skill 当用户：
+- 需要将代码推送到 GitHub
+- 想要新建 GitHub 仓库
+- 需要删除分支或文件
+- 想要回退/撤销提交
+- 需要查看仓库状态或历史
+- 遇到推送冲突需要解决
 
-| 模式 | 功能 | 示例命令 |
-|-----|------|---------|
-| **增** | 新建仓库、添加文件 | `gh repo create` / `git add` |
-| **删** | 删除仓库、删除文件/分支 | `gh repo delete` / `git rm` |
-| **改** | 更新推送、修改文件 | `git commit` / `git push` |
-| **查** | 查询状态、查看历史 | `git status` / `git log` |
-| **回** | 回退操作、撤销推送 | `git reset` / `git revert` |
+## Quick Start
 
-### 🔑 核心能力
-- SSH密钥生成与配置
-- GitHub API 集成（创建/删除仓库）
-- 智能冲突检测与合并
-- 操作历史记录与回退
-- 推送状态报告
-
-## 使用场景
-- Skill开发版本管理
-- 配置文件同步
-- 代码版本控制
-- 团队协作开发
-
----
-
-## 快速使用
-
-### 新建仓库
+### 新建仓库并推送
 ```bash
-# 创建新仓库并推送
 gh repo create my-repo --private --source=. --push
 ```
 
-### 更新推送
+### 标准推送流程
 ```bash
-# 标准推送流程
 git add -A
 git commit -m "update"
 git push origin main
 ```
 
-### 删除分支
+### 删除远程分支
 ```bash
-# 删除远程分支
 git push origin --delete branch-name
-
-# 删除本地分支
-git branch -d branch-name
 ```
 
-### 回退操作
+### 回退到上一版本
 ```bash
-# 删除远程分支（回退推送）
-git push origin --delete branch-name
-
-# 回退到上一版本
 git reset --soft HEAD~1
-
-# 安全撤销已推送提交
-git revert <commit-hash>
 ```
 
-### 查询状态
+### 查看状态
 ```bash
-# 查看完整状态
 git status
 git log --oneline -10
-git branch -a
 ```
 
----
-
-## 详细指南
+## Workflow
 
 ### 【增】新建与添加
 
@@ -105,8 +92,6 @@ git add <files>
 git commit -m "feat: add new feature"
 git push origin main
 ```
-
----
 
 ### 【删】删除仓库/文件/分支
 
@@ -131,8 +116,6 @@ git commit -m "remove: delete files"
 git push
 ```
 
----
-
 ### 【改】更新推送
 
 #### 标准推送
@@ -150,8 +133,6 @@ git pull origin main --no-rebase
 git push origin main
 ```
 
----
-
 ### 【查】查询状态
 
 ```bash
@@ -167,8 +148,6 @@ git branch -a
 # 查看远程信息
 git remote -v
 ```
-
----
 
 ### 【回】回退与撤销
 
@@ -195,67 +174,41 @@ git revert <commit-hash>
 git push
 ```
 
----
+## Examples
 
-## 交互式使用场景
+### Example 1: 新建仓库
+用户："新建仓库 git-push-skill"
 
-### 场景1：新建仓库
-**用户**: "新建仓库 git-push-skill"
+系统：
+1. 确认仓库名称和隐私设置
+2. 检查本地目录
+3. 执行 `gh repo create`
+4. 返回新仓库 URL
 
-**系统交互**:
-1. 询问："仓库名称: git-push-skill，是否私有？(y/n)"
-2. 询问："本地目录: /path/to/git-push-skill"
-3. 询问："是否初始化 README？(y/n)"
-4. 执行并返回新仓库 URL
+### Example 2: 回退推送
+用户："回退刚才的推送"
 
-### 场景2：回退操作
-**用户**: "回退刚才的推送"
-
-**系统交互**:
+系统：
 1. 查询最近操作历史
-2. 确认："回退刚才推送到 skills-subtree 的操作？"
-3. 询问回退方式：
-   - a) 删除远程分支（完全移除）
-   - b) 强制回滚到上一版本
-   - c) revert（生成反向提交）
+2. 确认回退范围
+3. 提供回退选项（删除分支/强制回滚/revert）
 4. 执行并返回结果
 
----
+### Example 3: 解决冲突
+用户："推送失败了，说有冲突"
 
-## 依赖安装
+系统：
+1. 执行 `git pull origin main --no-rebase`
+2. 指导用户解决冲突
+3. 重新推送
 
-### Git
-```bash
-# Ubuntu/Debian
-sudo apt-get install git
+## Notes
 
-# macOS
-brew install git
-```
+- 使用 `--force` 需谨慎，可能导致数据丢失
+- 删除仓库操作不可恢复，会二次确认
+- 建议配置 SSH 密钥避免重复输入密码
 
-### GitHub CLI
-```bash
-# Ubuntu/Debian
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-sudo apt-get install gh
-
-# macOS
-brew install gh
-```
-
-### SSH 配置
-```bash
-# 生成 SSH 密钥
-ssh-keygen -t ed25519 -C "your@email.com"
-
-# 添加到 GitHub
-cat ~/.ssh/id_ed25519.pub
-# 复制到 GitHub Settings -> SSH Keys
-```
-
----
-
-## 版本历史
+## Version History
 
 - **v2.1.0** (2026-03-13): 新增回退操作、删除文件功能、操作历史记录
 - **v2.0.0** (2026-03-13): 新增增删改查四种操作模式、交互式询问流程
