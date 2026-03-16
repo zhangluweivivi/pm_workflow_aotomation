@@ -1,6 +1,5 @@
 ---
 name: xiaohongshu-get-idea
-version: 1.0.0
 description: |
   小红书爆款内容分析与创意提取工具。自动分析小红书笔记链接，提取关键信息，
   生成可复刻的创意元素和 AI 反推提示词。
@@ -12,14 +11,20 @@ description: |
   4. 用户需要提取小红书内容的创意元素
   
   触发关键词：小红书分析、拆解笔记、提取创意、为什么数据好、复刻这个、学习这个爆款
+license: MIT
+compatibility: |
+  需要 xiaohongshu-explore skill 支持。
+  可选依赖：ffmpeg（用于视频关键帧提取）
 metadata:
+  version: "1.0.0"
+  author: zhangluweivivi
+  homepage: https://github.com/zhangluweivivi/pm_workflow_aotomation
   requires:
+    skills:
+      - xiaohongshu-explore
     bins:
       - python3
       - ffmpeg
-    skills:
-      - xiaohongshu-explore
-homepage: https://github.com/zhangluweivivi/pm_workflow_aotomation
 ---
 
 # xiaohongshu-get-idea
@@ -136,17 +141,6 @@ exec(command="python3 -m xiaohongshu_explore get-note --url {user_url}")
 3. ...
 ```
 
-## Dependencies
-
-此 skill 依赖以下工具：
-
-### 必需
-- `python3` - 执行分析脚本
-- `xiaohongshu-explore` skill - 获取小红书笔记数据
-
-### 可选（用于完整分析）
-- `ffmpeg` - 视频关键帧提取
-
 ## Examples
 
 ### Example 1: 分析图文笔记
@@ -173,7 +167,3 @@ exec(command="python3 -m xiaohongshu_explore get-note --url {user_url}")
 - 小红书视频 URL 有时效性，需尽快分析
 - 部分笔记可能需要登录才能查看完整数据
 - 分析结果基于公开可见的信息
-
-## Version History
-
-- **v1.0.0** (2026-03-16): 初始版本，支持笔记分析和创意提取
